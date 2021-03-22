@@ -6,12 +6,15 @@ Module Module1
     Public Class Form1 : Inherits Form
         Private labelWidth As Integer = 60
         Private labelHeight As Integer = 30
-        Private address, district, gender, interest, aboutYou, user_name, readingSelected, travelSelected, cookingSelected, isMale, isFemale, aboutYouDetail As Label
-        Private nameTextBox, addressTextBox, districtTextBox, aboutYouTextBox as TextBox
+        Private address, district, gender, interest, aboutYou, user_name, readingSelected, travelSelected, cookingSelected, isMale, isFemale, aboutYouDetail, districtSelected As Label
+        Private districtNames As Label()
+        Private nameTextBox, addressTextBox, aboutYouTextBox as TextBox
         Private readingCheck, travelCheck, cookingCheck as CheckBox
         Private male, female as RadioButton
         Private submit, reset as Button
         Private form2 As Form
+        Private listbox As ComboBox
+        Private districtNamesList As String()
         Public Sub New()
             Me.Text = "My Form"
             Me.Size = New size(500, 500)
@@ -29,7 +32,7 @@ Module Module1
             aboutYou = New Label()
             nameTextBox = New TextBox()
             addressTextBox = New TextBox()
-            districtTextBox = New TextBox()
+            'districtTextBox = New TextBox()
             'interestTextBox = New TextBox()
             aboutYouTextBox = New TextBox()
             male = New RadioButton()
@@ -39,7 +42,9 @@ Module Module1
             cookingCheck = New CheckBox()
             submit = New Button()
             reset = New Button()
-
+            listbox = New ComboBox()
+            districtNamesList = New String() {"Kathmandu", "Lalitpur", "Bhaktapur", "Pokhara", "Janakpur","Chitwan", "Hetuda", "Dharan"}
+            
             user_name.Size = New Size(labelWidth, labelHeight)
             address.Size = New Size(labelWidth, labelHeight)
             district.Size = New Size(labelWidth, labelHeight)
@@ -48,6 +53,8 @@ Module Module1
             aboutYou.Size = New Size(labelWidth, labelHeight)
             male.Size = New Size(labelWidth, labelHeight)
             female.Size = New Size(labelWidth, labelHeight)
+            listbox.Size = New Size(labelWidth*2, labelHeight)
+
 
             nameTextBox.height = 30
             nameTextBox.width = 100
@@ -69,6 +76,11 @@ Module Module1
             travelCheck.Text = "Travelling"
             cookingCheck.Text = "Cooking"
 
+            For Each item In districtNamesList
+                listbox.Items.Add(item)
+            Next
+            
+
             user_name.Location = New Point(Me.Width/2-labelWidth*2, 20)
             address.Location = New Point(Me.Width/2-labelWidth*2, 60)
             district.Location = New Point(Me.Width/2-labelWidth*2, 100)
@@ -77,8 +89,7 @@ Module Module1
             aboutYou.Location = New Point(Me.Width/2-labelWidth*2, 220)
             nameTextBox.Location = New Point(Me.Width/2-labelWidth, 20)
             addressTextBox.Location = New Point(Me.Width/2-labelWidth, 60)
-            districtTextBox.Location = New Point(Me.Width/2-labelWidth, 100)
-            'interestTextBox.Location = New Point(Me.Width/2-labelWidth, 180)
+            listbox.Location = New Point(Me.Width/2-labelWidth, 100)
             aboutYouTextBox.Location = New Point(Me.Width/2-labelWidth, 220)
             male.Location = New Point(Me.Width/2-labelWidth, 140)
             female.Location = New Point(Me.Width/2+male.size.width/2-15, 140)
@@ -96,6 +107,7 @@ Module Module1
             AddHandler cookingCheck.CheckStateChanged, AddressOf cookingBoxChecked
             AddHandler male.Click, AddressOf maleChecked
             AddHandler female.Click, AddressOf femaleChecked
+            AddHandler listbox.SelectedValueChanged, AddressOf listboxValueSelected
 
             Me.Controls.Add(user_name)
             Me.Controls.Add(address)
@@ -104,8 +116,8 @@ Module Module1
             Me.Controls.Add(interest)
             Me.Controls.Add(aboutYou)
             Me.Controls.Add(nameTextBox)
+            Me.Controls.Add(listbox)
             Me.Controls.Add(addressTextBox)
-            Me.Controls.Add(districtTextBox)
             Me.Controls.Add(readingCheck)
             Me.Controls.Add(travelCheck)
             Me.Controls.Add(cookingCheck)
@@ -135,6 +147,7 @@ Module Module1
             aboutYouDetail.Text = aboutYouTextBox.Text
             aboutYouDetail.Size = new Size(labelWidth*2, labelHeight*2)
             aboutYouDetail.Location = New Point(50, 140)
+          
 
             form2.Controls.Add(user_info_name)
             form2.Controls.Add(user_info_address)
@@ -144,13 +157,13 @@ Module Module1
             form2.Controls.Add(isMale)
             form2.Controls.Add(isFemale)
             form2.Controls.Add(aboutYouDetail)
+            form2.Controls.Add(districtSelected)
 
         End Sub
 
         Private Sub resetBtnClick(source as Object, e As EventArgs)
             nameTextBox.Text = " "
             addressTextBox.Text = " "
-            districtTextBox.Text = " "
             aboutYouTextBox.Text = " "
 
         End Sub
@@ -188,6 +201,14 @@ Module Module1
             isFemale.Size = New Size(labelWidth, labelHeight)
             isFemale.Text = female.Text
             isFemale.Location = New Point(50,110)            
+        End Sub
+
+        Private Sub listboxValueSelected(source As Object, e As EventArgs)
+            districtSelected = New Label()
+            districtSelected.Text = CStr(listbox.SelectedItem) 
+            console.writeline(districtSelected.text)
+            districtSelected.Size = New Size(labelWidth, labelHeight)
+            districtSelected.Location = New Point(50, 170)
         End Sub
 
         Public Shared Sub Main(args as [String]())
