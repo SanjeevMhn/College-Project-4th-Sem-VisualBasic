@@ -6,7 +6,7 @@ Module Module1
     Public Class Form1 : Inherits Form
         Private labelWidth As Integer = 60
         Private labelHeight As Integer = 30
-        Private address, district, gender, interest, aboutYou, user_name, readingSelected, travelSelected, cookingSelected, isMale, isFemale As Label
+        Private address, district, gender, interest, aboutYou, user_name, readingSelected, travelSelected, cookingSelected, isMale, isFemale, aboutYouDetail As Label
         Private nameTextBox, addressTextBox, districtTextBox, aboutYouTextBox as TextBox
         Private readingCheck, travelCheck, cookingCheck as CheckBox
         Private male, female as RadioButton
@@ -131,12 +131,19 @@ Module Module1
             user_info_address = New Label()
             user_info_address.Location = New Point(50, 50)
             user_info_address.Text = addressTextBox.Text
+            aboutYouDetail = New Label()
+            aboutYouDetail.Text = aboutYouTextBox.Text
+            aboutYouDetail.Size = new Size(labelWidth*2, labelHeight*2)
+            aboutYouDetail.Location = New Point(50, 140)
 
             form2.Controls.Add(user_info_name)
             form2.Controls.Add(user_info_address)
             form2.Controls.Add(readingSelected)
             form2.Controls.Add(travelSelected)
             form2.Controls.Add(cookingSelected)
+            form2.Controls.Add(isMale)
+            form2.Controls.Add(isFemale)
+            form2.Controls.Add(aboutYouDetail)
 
         End Sub
 
@@ -179,7 +186,7 @@ Module Module1
         Private Sub femaleChecked(source As Object, e As EventArgs)
             isFemale = New Label()
             isFemale.Size = New Size(labelWidth, labelHeight)
-            isFemale.Text = male.Text
+            isFemale.Text = female.Text
             isFemale.Location = New Point(50,110)            
         End Sub
 
