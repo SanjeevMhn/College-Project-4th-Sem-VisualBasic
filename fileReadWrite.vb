@@ -10,7 +10,8 @@ imports System.Windows.Forms
 Module Module1
     Public Class Form1 : Inherits Form
         Private appTitle,menuHeader As Label
-        Private menuList, content As Panel 
+        Private menuList, content As Panel
+        Private newInfoInput, loadInfo, updateInfo As Panel 
         Private menuItemNew, menuItemLoad, menuItemUpdate, menuItemCancel As Button
 
         Public Sub New()
